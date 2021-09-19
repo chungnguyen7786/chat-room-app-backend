@@ -70,8 +70,6 @@ router.put('/:id', verifyToken, async (req, res) => {
     let updatedRoom = {
       roomName,
       desc,
-      // admin: req.userId,
-      // members: [req.userId],
     }
 
     const roomUpdateCondition = {
