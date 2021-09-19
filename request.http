@@ -1,0 +1,121 @@
+GET http://localhost:5000/
+
+###
+
+GET http://localhost:5000/api/auth/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTQzNmQ5NGQ5ZTliMDI4OWE4MDI5NWYiLCJpYXQiOjE2MzE4MDg5MTZ9.v03yQxR2mddnYboJPfNuYz4iZ4teXP8uygkU0GSgA74
+
+###
+
+POST http://localhost:5000/api/auth/register
+Content-Type: application/json
+
+{
+  "username": "sanguyen",
+  "email": "sanguyen@gmail.com",
+  "password": "sanguyen"
+  
+}
+
+###
+
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "chungnguyen@gmail.com",
+  "password": "chungnguyen"
+  
+}
+
+###
+
+#ninhphan get the room list
+GET http://localhost:5000/api/rooms
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTQzN2I5MTcxMTA4MWYxNjA2ZWI3NjAiLCJpYXQiOjE2MzE4NzQ1Njl9.xOmI-FrnL0RQjtl-GLy6kfwXeuR8ffhLT66mQ_Txq-c
+
+###
+
+#chungnguyen post
+POST http://localhost:5000/api/rooms
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTQzNmQ5NGQ5ZTliMDI4OWE4MDI5NWYiLCJpYXQiOjE2MzE4MDg5MTZ9.v03yQxR2mddnYboJPfNuYz4iZ4teXP8uygkU0GSgA74
+
+{
+  "roomName": "React",
+  "desc": "React study"  
+}
+
+###
+
+#ninhphan post
+POST http://localhost:5000/api/rooms
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTQzN2I5MTcxMTA4MWYxNjA2ZWI3NjAiLCJpYXQiOjE2MzE4NzQ1Njl9.xOmI-FrnL0RQjtl-GLy6kfwXeuR8ffhLT66mQ_Txq-c
+
+{
+  "roomName": "Express",
+  "desc": "Express study"  
+}
+
+###
+
+#sanguyen post
+POST http://localhost:5000/api/rooms
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTQ0NjI4ZDkyYmIwNGUwNDUzMjcwNDciLCJpYXQiOjE2MzE4OTc5OTR9.AWzVlfzgBbCIJLlsyWw0nCeWvxR9U_U9IlvmOWD0WsI
+
+{
+  "roomName": "JavaScript",
+  "desc": "JavaScript study"  
+}
+
+###
+
+#tuanphan post
+POST http://localhost:5000/api/rooms
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTQ0NjI3YjkyYmIwNGUwNDUzMjcwNDQiLCJpYXQiOjE2MzE4OTg0Njl9.7CjXeht6VVgdlv1sIF4_0h-1vz7ZxNZ_QOzUtTcn410
+
+{
+  "roomName": "TypeScript",
+  "desc": "TypeScript study"  
+}
+
+###
+
+#ninhphan update
+PUT http://localhost:5000/api/rooms/61474341919ef17283b8b3df
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTQzN2I5MTcxMTA4MWYxNjA2ZWI3NjAiLCJpYXQiOjE2MzE4NzQ1Njl9.xOmI-FrnL0RQjtl-GLy6kfwXeuR8ffhLT66mQ_Txq-c
+
+{
+  "roomName": "ExpressJs",
+  "desc": "ExpressJs study"  
+}
+
+###
+
+#ninhphan delete
+DELETE http://localhost:5000/api/rooms/61474261919ef17283b8b3cc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTQzN2I5MTcxMTA4MWYxNjA2ZWI3NjAiLCJpYXQiOjE2MzE4NzQ1Njl9.xOmI-FrnL0RQjtl-GLy6kfwXeuR8ffhLT66mQ_Txq-c
+
+###
+
+#chungnguyen get messages
+GET http://localhost:5000/api/messages/61474225919ef17283b8b3b6
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTQzNmQ5NGQ5ZTliMDI4OWE4MDI5NWYiLCJpYXQiOjE2MzE4MDg5MTZ9.v03yQxR2mddnYboJPfNuYz4iZ4teXP8uygkU0GSgA74
+
+###
+
+#chungnguyen send messages
+POST http://localhost:5000/api/messages/61474225919ef17283b8b3b6
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTQzNmQ5NGQ5ZTliMDI4OWE4MDI5NWYiLCJpYXQiOjE2MzE4MDg5MTZ9.v03yQxR2mddnYboJPfNuYz4iZ4teXP8uygkU0GSgA74
+
+{
+  "text": "I love React"
+}
