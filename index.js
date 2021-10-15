@@ -5,6 +5,7 @@ const cors = require('cors')
 const authRouter = require('./routes/auth')
 const roomRouter = require('./routes/room')
 const messageRouter = require('./routes/message')
+const searchRouter = require('./routes/search')
 
 require('dotenv').config()
 
@@ -29,6 +30,7 @@ app.use(cors())
 app.use('/api/auth', authRouter)
 app.use('/api/rooms', roomRouter)
 app.use('/api/messages', messageRouter)
+app.use('/api/search/', searchRouter)
 
 const PORT = process.env.PORT || 5000
 

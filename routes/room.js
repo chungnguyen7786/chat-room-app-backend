@@ -11,11 +11,12 @@ router.get('/', verifyToken, async (req, res) => {
   try {
     const rooms = await Room.find({ members: req.userId }).populate('members', [
       'username',
+      'avatarUrl',
     ])
-    res.json(rooms)
+    res.json({ success: true, rooms })
   } catch (error) {
     console.error(error)
-    res.status(500).json({ error: error.message })
+    res.status(500).json({ success: false, message: error.message })
   }
 })
 
@@ -26,11 +27,17 @@ router.post('/', verifyToken, async (req, res) => {
   const { roomName, desc } = req.body
   // Simple validation
   if (!roomName || !desc)
-    res.status(400).json({ error: 'Room name and description are required' })
+    res.status(400).json({
+      success: false,
+      message: 'Room name and description are required',
+    })
 
   // Check for existing room
   const room = await Room.findOne({ roomName })
-  room && res.status(400).json({ error: 'This room_name already taken' })
+  room &&
+    res
+      .status(400)
+      .json({ success: false, message: 'This room_name already taken' })
 
   try {
     const newRoom = new Room({
@@ -47,12 +54,13 @@ router.post('/', verifyToken, async (req, res) => {
     await newRoom.populate('members', ['username'])
 
     res.status(201).json({
+      success: true,
       message: 'Created room successfully',
       room: newRoom,
     })
   } catch (error) {
     console.error(error)
-    res.status(500).json({ error: error.message })
+    res.status(500).json({ success: false, message: error.message })
   }
 })
 
@@ -64,7 +72,10 @@ router.put('/:id', verifyToken, async (req, res) => {
 
   // Simple validation:
   if (!roomName || !desc)
-    res.status(400).json({ error: 'Room name and description are required' })
+    res.status(400).json({
+      success: false,
+      message: 'Room name and description are required',
+    })
 
   try {
     let updatedRoom = {
@@ -84,12 +95,19 @@ router.put('/:id', verifyToken, async (req, res) => {
     )
 
     !updatedRoom &&
-      res.status(401).json({ error: 'Room not found or user not authorised' })
+      res.status(401).json({
+        success: false,
+        message: 'Room not found or user not authorised',
+      })
 
-    res.json({ message: 'Update successfully', room: updatedRoom })
+    res.json({
+      success: true,
+      message: 'Update successfully',
+      room: updatedRoom,
+    })
   } catch (error) {
     console.error(error)
-    res.status(500).json({ error: error.message })
+    res.status(500).json({ success: false, message: error.message })
   }
 })
 
@@ -106,12 +124,15 @@ router.delete('/:id', verifyToken, async (req, res) => {
     const deletedRoom = await Room.findOneAndDelete(roomDeleteCondition)
 
     !deletedRoom &&
-      res.status(401).json({ error: 'Room not found or user not authorised' })
+      res.status(401).json({
+        success: false,
+        message: 'Room not found or user not authorised',
+      })
 
-    res.json({ message: 'Delete successfully', deletedRoom })
+    res.json({ success: true, message: 'Delete successfully', deletedRoom })
   } catch (error) {
     console.error(error)
-    res.status(500).json({ error: error.message })
+    res.status(500).json({ success: false, message: error.message })
   }
 })
 

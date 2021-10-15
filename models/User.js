@@ -22,7 +22,6 @@ const UserSchema = new Schema(
     },
     avatarUrl: {
       type: String,
-      default: 'https://lorempixel.com/200/200/',
     },
   },
   {

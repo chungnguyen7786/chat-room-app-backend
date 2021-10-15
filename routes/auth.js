@@ -12,11 +12,11 @@ const User = require('../models/User')
 router.get('/', verifyToken, async (req, res) => {
   try {
     const user = await User.findById(req.userId).select('-password')
-    !user && res.status(400).json({ error: 'User not found' })
-    res.status(200).json(user)
+    !user && res.status(404).json({ success: false, message: 'User not found' })
+    res.status(200).json({ success: true, user })
   } catch (error) {
     console.error(error)
-    res.status(500).json({ error: error.message })
+    res.status(500).json({ success: false, message: error.message })
   }
 })
 
@@ -28,12 +28,15 @@ router.post('/register', async (req, res) => {
 
   // Simple validation
   if (!username || !email || !password)
-    res.status(400).json({ error: 'Missing some info' })
+    res.status(400).json({ success: false, message: 'Missing some info' })
 
   try {
     // Check for existing user
     const user = await User.findOne({ username })
-    user && res.status(400).json({ error: 'Username already taken' })
+    user &&
+      res
+        .status(400)
+        .json({ success: false, message: 'Username already taken' })
 
     // All good
     const salt = await bcrypt.genSalt(10)
@@ -51,10 +54,12 @@ router.post('/register', async (req, res) => {
       { userId: newUser._id },
       process.env.ACCESS_TOKEN_SECRET
     )
-    res.status(201).json({ message: 'Registered successfully', accessToken })
+    res
+      .status(201)
+      .json({ success: true, message: 'Registered successfully', accessToken })
   } catch (error) {
     console.error(error)
-    res.status(500).json({ error: error.message })
+    res.status(500).json({ success: false, message: error.message })
   }
 })
 
@@ -66,16 +71,24 @@ router.post('/login', async (req, res) => {
 
   // Simple validation
   if (!email || !password)
-    res.status(400).json({ error: 'Missing email or password' })
+    res
+      .status(400)
+      .json({ success: false, message: 'Missing email or password' })
 
   try {
     // Check for existing user
     const user = await User.findOne({ email })
-    !user && res.status(400).json({ error: 'Incorrect email' })
+    !user &&
+      res
+        .status(400)
+        .json({ success: false, message: 'Incorrect email or password' })
 
     // User found
     const passwordValid = await bcrypt.compare(password, user.password)
-    !passwordValid && res.status(400).json({ error: 'Incorrect password' })
+    !passwordValid &&
+      res
+        .status(400)
+        .json({ success: false, message: 'Incorrect email or password' })
 
     // All good
     // Return token
@@ -83,10 +96,12 @@ router.post('/login', async (req, res) => {
       { userId: user._id },
       process.env.ACCESS_TOKEN_SECRET
     )
-    res.status(202).json({ message: 'Logged in successfully', accessToken })
+    res
+      .status(202)
+      .json({ success: true, message: 'Logged in successfully', accessToken })
   } catch (error) {
     console.error(error)
-    res.status(500).json({ error: error.message })
+    res.status(500).json({ success: false, message: error.message })
   }
 })
 

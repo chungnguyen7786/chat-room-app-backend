@@ -6,8 +6,8 @@ const RoomSchema = new Schema(
     roomName: {
       type: String,
       required: true,
-      minlength: 3,
-      maxlength: 20,
+      // minlength: 3,
+      // maxlength: 20,
       unique: true,
     },
     desc: {
