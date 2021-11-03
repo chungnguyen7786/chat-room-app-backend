@@ -87,9 +87,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTRlZ
 ###
 
 #search User
-GET http://localhost:5000/api/search/users?q=tua
+GET http://localhost:5000/api/search/users?q=va
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTRlZTZhODgzNzQ4NjdjYzMwN2ExYmUiLCJpYXQiOjE2MzQyMDE3NzV9.T3NP46QuIiSInbo9u3TDNgXl1Z0ynyWSh26fsi4IxDg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTRlZTY5ODgzNzQ4NjdjYzMwN2ExYmIiLCJpYXQiOjE2MzU1MDI5NjF9.pYW6kfZxA9fsYSJQnQ7mP1EtjU83r-gcOrCwUzgOiwc
 
 
 ###
@@ -97,4 +97,16 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTRlZ
 #search Room
 GET http://localhost:5000/api/search/rooms?q=rea
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTRlZTZhODgzNzQ4NjdjYzMwN2ExYmUiLCJpYXQiOjE2MzQyMDE3NzV9.T3NP46QuIiSInbo9u3TDNgXl1Z0ynyWSh26fsi4IxDg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTRlZTY5ODgzNzQ4NjdjYzMwN2ExYmIiLCJpYXQiOjE2MzQyODgwOTF9.AO--eGoc-uXPiSsB_xLQ6PuUflPz28GfgR9IcOC-OEk
+
+###
+
+#Add member to a room
+PUT http://localhost:5000/api/rooms/invite/614ee7218374867cc307a1d0
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTRlZTY5ODgzNzQ4NjdjYzMwN2ExYmIiLCJpYXQiOjE2MzQyODgwOTF9.AO--eGoc-uXPiSsB_xLQ6PuUflPz28GfgR9IcOC-OEk
+
+{
+  "userIds": ["614ee6c08374867cc307a1c4", "6167eea329950156f1ca6080"]
+}
+

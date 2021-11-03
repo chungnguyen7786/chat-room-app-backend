@@ -3,6 +3,7 @@ const router = express.Router()
 const verifyToken = require('../middlewares/auth')
 
 const Room = require('../models/Room')
+const User = require('../models/User')
 
 // @route GET api/rooms
 // @desc Get rooms
@@ -65,7 +66,7 @@ router.post('/', verifyToken, async (req, res) => {
 })
 
 // @route PUT api/rooms/:id
-// @desc Update a room
+// @desc Update name and description of a room
 // @access Private
 router.put('/:id', verifyToken, async (req, res) => {
   const { roomName, desc } = req.body
@@ -91,7 +92,7 @@ router.put('/:id', verifyToken, async (req, res) => {
     updatedRoom = await Room.findOneAndUpdate(
       roomUpdateCondition,
       updatedRoom,
-      { new: true }
+      { new: true } //return room after update (new room)
     )
 
     !updatedRoom &&
@@ -130,6 +131,30 @@ router.delete('/:id', verifyToken, async (req, res) => {
       })
 
     res.json({ success: true, message: 'Delete successfully', deletedRoom })
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ success: false, message: error.message })
+  }
+})
+
+// @route PUT api/rooms/invite/:id
+// @desc Invite a member to a room (id)
+// @access Private
+router.put('/invite/:id', verifyToken, async (req, res) => {
+  try {
+    const { userIds } = req.body
+    const roomId = req.params.id
+    const room = await Room.findById(roomId)
+    const users = await User.find({ _id: { $in: userIds } })
+
+    users.forEach((user) => room.members.push(user))
+    await room.save()
+
+    res.json({
+      success: true,
+      message: 'Invite successfully',
+      room,
+    })
   } catch (error) {
     console.error(error)
     res.status(500).json({ success: false, message: error.message })
